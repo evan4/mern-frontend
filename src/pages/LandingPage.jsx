@@ -246,13 +246,24 @@ export default function LandingPage() {
                   Ready to build your <span className={landingPageStyles.ctaTitleGradient}>Standout Resume?</span>
                 </h2>
                 <p className={landingPageStyles.ctaDescription}>
-                Join 1000 of professionals  who landed their dream jobs with our platform
+                  Join 1000 of professionals who landed their dream jobs with our platform
                 </p>
+                <button className={landingPageStyles.ctaButton}
+                  onClick={handleCTA}>
+                  <div className={landingPageStyles.ctaButtonOverlay}></div>
+                  <span className={landingPageStyles.ctaButtonText}>Start building now</span>
+                </button>
               </div>
             </div>
           </div>
         </section>
       </main>
+      {/*Footer section */}
+      <footer className={landingPageStyles.footer}>
+        <div className={landingPageStyles.footerContainer}>
+          <p className={landingPageStyles.footerText}> Crafted with <span className={landingPageStyles.footerHeart}>❤️</span></p>
+        </div>
+      </footer>
     </div>
   )
 }
