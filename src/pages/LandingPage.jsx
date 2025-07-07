@@ -5,7 +5,9 @@ import { ArrowRight, LayoutTemplate, Menu, X, Zap, Download } from 'lucide-react
 import { landingPageStyles } from "../assets/dummystyle.js";
 import { UserContext } from "../context/UserContext.jsx";
 import { ProfileInfoCard } from "../components/Cards.jsx";
-
+import Modal from "../components/Modal.jsx";
+import Login from "../components/Login.jsx";
+import SingUp from "../components/SingUp.jsx";
 
 export default function LandingPage() {
   const { user } = useContext(UserContext);
@@ -264,6 +266,17 @@ export default function LandingPage() {
           <p className={landingPageStyles.footerText}> Crafted with <span className={landingPageStyles.footerHeart}>❤️</span></p>
         </div>
       </footer>
+      {/*Modal for login & signup */}
+      <Modal isOpen={openAuthModal}
+        onClose={() => {
+          setOpenAuthModal(false);
+          setCurrentPage("login");
+        }} hideHeader title={currentPage}>
+        <div>
+          {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
+          {currentPage === "singup" && <SingUp setCurrentPage={setCurrentPage} />}
+        </div>
+      </Modal>
     </div>
   )
 }
