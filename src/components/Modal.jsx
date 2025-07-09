@@ -11,13 +11,11 @@ export default function Modal({
   return (
     <div className={styles.overlay}>
       <div className={styles.container}>
-      {title}
         {!hideHeader && (
           <div className={styles.header}>
             <h3 className={styles.title}>{title}</h3>
           </div>
         )}
-
         <button className={styles.closeButton} onClick={onClose}><X size={20}/></button>
         <div className={styles.body}>{children}</div>
       </div>
