@@ -1,13 +1,18 @@
 {
-  "name": "react-projecty",
+  "name": "vite-react-template-custom",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evan4/mern-frontend.git"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
@@ -28,5 +33,12 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.5"
-  }
+  },
+  "keywords": [
+    "Vite",
+    "React",
+    "React Router DOM",
+    "Tailwind",
+    "lucide-react"
+  ]
 }
