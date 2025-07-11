@@ -24,7 +24,7 @@ const UserProvider = ({ children }) => {
         const response = await axiosInstance.get(API_PATH.AUTH.GET_PROFILE);
         setUser(response.data);
       } catch (error) {
-        console.log("User not authenticated", error);
+        console.error("User not authenticated", error);
         clearUser();
       } finally {
         setLoading(false);

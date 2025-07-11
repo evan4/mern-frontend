@@ -35,9 +35,9 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       window.location.href = '/';
     }else if(error.response.status === 500){
-      console.log("Server error");
+      console.error("Server error");
     }else if(error.code === "ECONNABORTED"){
-      console.log("Request timeout");
+      console.error("Request timeout");
     }
 
     return Promise.reject(error);
