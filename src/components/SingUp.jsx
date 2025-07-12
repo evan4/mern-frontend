@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext.jsx";
 import { validateEmail } from "../utils/helper.js";
 import axiosInstance from '../utils/axiosInstance.js';
 import { API_PATH } from '../utils/apiPath.js';
-import Input from "./Input.jsx";
+import Input from "./Inputs";
 
 export default function SingUp({ setCurrentPage }) {
   const [fullName, setFullName] = useState('');

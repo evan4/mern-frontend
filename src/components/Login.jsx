@@ -6,7 +6,7 @@ import { validateEmail } from '../utils/helper';
 import axiosInstance from '../utils/axiosInstance';
 import { API_PATH } from '../utils/apiPath';
 import { authStyles as styles } from "../assets/dummystyle.js";
-import Input from './Input';
+import Input from './Inputs';
 
 export default function Login({ setCurrentPage }) {
   const [email, setEmail] = useState('');

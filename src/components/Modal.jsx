@@ -4,9 +4,10 @@ import { X } from 'lucide-react';
 import { modalStyles as styles } from "../assets/dummystyle.js";
 
 export default function Modal({
-  children, isOpen, onClose, title, hideHeader
+  children, isOpen, onClose, title, hideHeader, showActionBtn, actionBtnIcon = null, actionBtnText,
+  onActionClick = () => { }, actionBtnClassName,
 }) {
-  if(!isOpen) return null;
+  if (!isOpen) return null;
 
   return (
     <div className={styles.overlay}>
@@ -14,9 +15,14 @@ export default function Modal({
         {!hideHeader && (
           <div className={styles.header}>
             <h3 className={styles.title}>{title}</h3>
+            {showActionBtn && (
+              <button className={styles.actionButton} onClick={onActionClick}>
+                {actionBtnIcon} {actionBtnText}
+              </button>
+            )}
           </div>
         )}
-        <button className={styles.closeButton} onClick={onClose}><X size={20}/></button>
+        <button className={styles.closeButton} onClick={onClose}><X size={20} /></button>
         <div className={styles.body}>{children}</div>
       </div>
     </div>

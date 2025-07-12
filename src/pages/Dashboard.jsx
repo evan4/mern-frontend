@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { LucideFilePlus } from 'lucide-react';
+import { LucideFilePlus, LucideTrash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import moment from 'moment';
 
 import DashboardLayout from '../components/DashboardLayout.jsx';
 import { dashboardStyles as styles } from '../assets/dummystyle.js'
@@ -9,7 +10,7 @@ import axiosInstance from '../utils/axiosInstance.js';
 import { API_PATH } from '../utils/apiPath.js';
 import { ResumeSummaryCard } from '../components/Cards.jsx';
 import Modal from '../components/Modal.jsx';
-import moment from 'moment';
+import CreateResumeForm from '../components/CreateResumeForm.jsx'
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -208,7 +209,29 @@ export default function Dashboard() {
       {/*Create modal */}
       <Modal isOpen={openCreateModal} onClose={() => setOpenCreateModal(false)} hideHeader maxWidth="max-w-2xl">
         <div className='p-6'>
-          <div className={styles.modalHeader}></div>
+          <div className={styles.modalHeader}>
+            <h3 className={styles.modalTitle}>Create new resume</h3>
+            <button onClick={() => setOpenCreateModal(false)}
+              className={styles.modalCloseButton}>X</button>
+          </div>
+          <CreateResumeForm onSuccess={() => {
+            setOpenCreateModal(false);
+            fetchAllResumes();
+          }}></CreateResumeForm>
+        </div>
+      </Modal>
+      {/*delete modal */}
+      <Modal isOpen={showDeleteConfirm} onClose={() => showDeleteConfirm(false)} title="Confirm deletion"
+        showActionBtn actionBtnText="Delete" actionBtnClassName="bg-red-600 hover:bg-red-700"
+        onActionClick={handleDeleteResume}>
+        <div className="p-4">
+          <div className="flex flex-col item-center text-center">
+            <div className={styles.deleteIconWrapper}>
+              <LucideTrash2 className="text-orange-600" size={24}/>
+            </div>
+            <h3 className={styles.deleteTitle}>Delete resume?</h3>
+            <p className={styles.deleteText}>Are you sure delete this resume? This action cannot be undone</p>
+          </div>
         </div>
       </Modal>
     </DashboardLayout>
