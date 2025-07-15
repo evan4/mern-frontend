@@ -4,21 +4,22 @@ import { LucideFilePlus, LucideTrash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import moment from 'moment';
 
-import DashboardLayout from '../components/DashboardLayout.jsx';
-import { dashboardStyles as styles } from '../assets/dummystyle.js'
+import DashboardLayout from '../components/DashboardLayout';
+import { dashboardStyles as styles } from '../assets/dummystyle.js';
 import axiosInstance from '../utils/axiosInstance.js';
-import { API_PATH } from '../utils/apiPath.js';
-import { ResumeSummaryCard } from '../components/Cards.jsx';
-import Modal from '../components/Modal.jsx';
-import CreateResumeForm from '../components/CreateResumeForm.jsx'
+import { API_PATHS } from '../utils/apiPaths.js';
+import { ResumeSummaryCard } from '../components/Cards';
+import Modal from '../components/Modal';
+import CreateResumeForm from '../components/CreateResumeForm';
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const [openCreateModal, setOpenCreateModal] = useState(false);
-  const [allResumes, setallResumes] = useState([]);
+  const [allResumes, setAllResumes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [resumeToDelete, setResumeToDelete] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
   // Calculate completion percentage for a resume
   const calculateCompletion = (resume) => {
     let completedFields = 0;
@@ -96,13 +97,13 @@ export default function Dashboard() {
   const fetchAllResumes = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get(API_PATH.RESUME.GET_ALL);
+      const response = await axiosInstance.get(API_PATHS.RESUME.GET_ALL);
       // add completion percentage to each resume
-      const resumesWithCompletion = response.data?.map(resume => ({
+      const resumesWithCompletion = response.data.map(resume => ({
         ...resume,
         completion: calculateCompletion(resume),
       }));
-      setallResumes(resumesWithCompletion || []);
+      setAllResumes(resumesWithCompletion);
     } catch (error) {
       console.error("Error fetching resumes", error);
     } finally {
@@ -120,7 +121,7 @@ export default function Dashboard() {
     }
 
     try {
-      await axiosInstance.delete(API_PATH.RESUME.DELETE(resumeToDelete));
+      await axiosInstance.delete(API_PATHS.RESUME.DELETE(resumeToDelete));
       toast.success("Resume deleted successfully");
       fetchAllResumes();
     } catch (error) {
@@ -128,12 +129,12 @@ export default function Dashboard() {
       toast.error("Failed to delete resume")
     } finally {
       setResumeToDelete(null);
-      showDeleteConfirm(false);
+      setShowDeleteConfirm(false);
     }
   };
   const handleDeleteClick = (id) => {
     setResumeToDelete(id);
-    showDeleteConfirm(true);
+    setShowDeleteConfirm(true);
   }
 
   return (
@@ -182,30 +183,30 @@ export default function Dashboard() {
             </button>
           </div>
         )}
-        {/*Grid view */}
-        {!loading && allResumes.length > 0 && (
-          <div className={styles.grid}>
-            <div className={styles.newResumeCard}
-              onClick={() => setOpenCreateModal(true)}>
-              <div className={styles.newResumeIcon}>
-                <LucideFilePlus className="text-white" size={32} />
-              </div>
-              <h3 className={styles.newResumeTitle}>Create new resume</h3>
-              <p className={styles.newResumeText}>Start building your carrier</p>
-            </div>
-            {allResumes.map(resume => {
-              <ResumeSummaryCard key={resume._id} imgUrl={resume.thumbnailLink}
-                title={resume.title} createdAt={resume.createdAt}
-                updatedAt={resume.updatedAt} onSelect={() => navigate(`/resume/${resume._id}`)}
-                onDelete={handleDeleteClick(resume._id)}
-                completion={resume.completion || 0}
-                isPremium={resume.isPremium}
-                isNow={moment().diff(moment(resume.createdAt), "days") < 7}
-              />
-            })}
-          </div>
-        )}
       </div>
+      {/*Grid view */}
+      {!loading && allResumes.length > 0 && (
+        <div className={styles.grid}>
+          <div className={styles.newResumeCard}
+            onClick={() => setOpenCreateModal(true)}>
+            <div className={styles.newResumeIcon}>
+              <LucideFilePlus className="text-white" size={32} />
+            </div>
+            <h3 className={styles.newResumeTitle}>Create new resume</h3>
+            <p className={styles.newResumeText}>Start building your carrier</p>
+          </div>
+          {allResumes.map((resume) => (
+            <ResumeSummaryCard key={resume._id} imgUrl={resume.thumbnailLink}
+              title={resume.title} createdAt={resume.createdAt}
+              updatedAt={resume.updatedAt} onSelect={() => navigate(`/resume/${resume._id}`)}
+              onDelete={() => handleDeleteClick(resume._id)}
+              completion={resume.completion || 0}
+              isPremium={resume.isPremium}
+              isNow={moment().diff(moment(resume.createdAt), "days") < 7}
+            />
+          ))}
+        </div>
+      )}
       {/*Create modal */}
       <Modal isOpen={openCreateModal} onClose={() => setOpenCreateModal(false)} hideHeader maxWidth="max-w-2xl">
         <div className='p-6'>
@@ -227,7 +228,7 @@ export default function Dashboard() {
         <div className="p-4">
           <div className="flex flex-col item-center text-center">
             <div className={styles.deleteIconWrapper}>
-              <LucideTrash2 className="text-orange-600" size={24}/>
+              <LucideTrash2 className="text-orange-600" size={24} />
             </div>
             <h3 className={styles.deleteTitle}>Delete resume?</h3>
             <p className={styles.deleteText}>Are you sure delete this resume? This action cannot be undone</p>

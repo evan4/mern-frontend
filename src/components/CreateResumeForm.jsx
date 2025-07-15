@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Input from './Inputs';
-import axiosInstance from '../utils/axiosInstance';
-import { API_PATH } from '../utils/apiPath';
+import axiosInstance from '../utils/axiosInstance.js';
+import { API_PATHS } from '../utils/apiPaths.js';
 
 export default function CreateResumeForm() {
   const [title, setTitle] = useState("");
@@ -21,7 +21,7 @@ export default function CreateResumeForm() {
     setError("");
 
     try {
-      const response = await axiosInstance.post(API_PATH.RESUME.CREATE, {
+      const response = await axiosInstance.post(API_PATHS.RESUME.CREATE, {
         title,
 
       });

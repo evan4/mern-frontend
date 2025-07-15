@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { authStyles as styles } from "../assets/dummystyle.js";
-import { UserContext } from "../context/UserContext.jsx";
+import { UserContext } from "../context/UserContext";
 import { validateEmail } from "../utils/helper.js";
 import axiosInstance from '../utils/axiosInstance.js';
-import { API_PATH } from '../utils/apiPath.js';
+import { API_PATHS } from '../utils/apiPaths.js';
 import Input from "./Inputs";
 
 export default function SingUp({ setCurrentPage }) {
@@ -37,7 +37,7 @@ export default function SingUp({ setCurrentPage }) {
     setError("");
 
     try {
-      const response = await axiosInstance.post(API_PATH.AUTH.REGISTER, {
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         name: fullName,
         email,
         password,

@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 
-import { API_PATH } from '../utils/apiPath.js';
+import { API_PATHS } from '../utils/apiPaths.js';
 
 export const UserContext = createContext();
 
@@ -21,7 +21,7 @@ const UserProvider = ({ children }) => {
 
     const fetchUser = async () => {
       try {
-        const response = await axiosInstance.get(API_PATH.AUTH.GET_PROFILE);
+        const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
         setUser(response.data);
       } catch (error) {
         console.error("User not authenticated", error);

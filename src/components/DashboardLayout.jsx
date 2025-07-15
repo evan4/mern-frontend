@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
+
 import { UserContext } from '../context/UserContext';
-import Navbar from './Navbar.jsx';
+import Navbar from './Navbar';
 
 export default function DashboardLayout({ activeMenu, children }) {
   const { user } = useContext(UserContext);

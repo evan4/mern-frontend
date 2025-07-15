@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, LayoutTemplate, Menu, X, Zap, Download } from 'lucide-react';
 
 import { landingPageStyles } from "../assets/dummystyle.js";
-import { UserContext } from "../context/UserContext.jsx";
-import { ProfileInfoCard } from "../components/Cards.jsx";
-import Modal from "../components/Modal.jsx";
-import Login from "../components/Login.jsx";
-import SingUp from "../components/SingUp.jsx";
+import { UserContext } from "../context/UserContext";
+import { ProfileInfoCard } from "../components/Cards";
+import Modal from "../components/Modal";
+import Login from "../components/Login";
+import SingUp from "../components/SingUp";
 
 export default function LandingPage() {
   const { user } = useContext(UserContext);
